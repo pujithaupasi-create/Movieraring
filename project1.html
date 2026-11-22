@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecallRocket | Smart Learning</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-rocket"></i></div>
+            <span>Recall<span class="highlight">Rocket</span></span>
+        </div>
+
+        <div class="menu-label">MENU</div>
+
+        <nav>
+            <button class="nav-link active" data-page="dashboard">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </button>
+            <button class="nav-link" data-page="decks">
+                <i class="fa-solid fa-layer-group"></i> My Decks
+            </button>
+            <button class="nav-link" data-page="review">
+                <i class="fa-solid fa-brain"></i> Daily Review
+            </button>
+            <button class="nav-link" data-page="leaderboard">
+                <i class="fa-solid fa-trophy"></i> Leaderboard
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="rocket-card">
+                <div class="rocket-emoji">🚀</div>
+                <h3>Keep learning!</h3>
+                <p>Small steps every day lead to big results.</p>
+            </div>
+            <button class="theme-btn" id="themeToggle">
+                <i class="fa-solid fa-moon"></i> Change Theme
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="welcome">YOUR PERSONAL LEARNING SPACE</p>
+                <h1 id="pageTitle">Good morning, Learner! 👋</h1>
+            </div>
+            <div class="top-actions">
+                <div class="date-display">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span id="todayDate"></span>
+                </div>
+                <div class="profile">S</div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+
+            <div class="hero">
+                <div class="hero-content">
+                    <span class="hero-tag">✦ YOUR MEMORY, UPGRADED</span>
+                    <h2>Learn smarter.<br>Remember longer.</h2>
+                    <p>Build your knowledge one card at a time. Your next breakthrough starts today.</p>
+                    <button class="primary-btn" onclick="showPage('review')">
+                        Start Learning <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-art">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="hero-book">🧠</div>
+                    <span class="floating-icon icon-one">✨</span>
+                    <span class="floating-icon icon-two">📚</span>
+                    <span class="floating-icon icon-three">⚡</span>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fa-solid fa-layer-group"></i></div>
+                    <div><p>Total Cards</p><h2 id="totalCards">0</h2></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-clock"></i></div>
+                    <div><p>Due Today</p><h2 id="dueCards">0</h2></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fa-solid fa-fire"></i></div>
+                    <div><p>Study Streak</p><h2><span id="streakCount">0</span> Days</h2></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-star"></i></div>
+                    <div><p>Memory Points</p><h2 id="memoryPoints">0</h2></div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="panel">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Continue Learning</h2>
+                            <p>Your subjects are waiting for you.</p>
+                        </div>
+                        <button class="text-btn" onclick="showPage('decks')">View all →</button>
+                    </div>
+                    <div id="dashboardDecks" class="deck-grid"></div>
+                </div>
+
+                <div class="panel progress-panel">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Daily Progress</h2>
+                            <p>Your learning journey today.</p>
+                        </div>
+                    </div>
+                    <div class="progress-circle" id="progressCircle">
+                        <div>
+                            <h2 id="progressPercent">0%</h2>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+                    <p class="progress-caption" id="progressCaption">Start a review session to make progress!</p>
+                    <div class="progress-info">
+                        <span>Cards reviewed</span>
+                        <strong id="reviewedCount">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel quick-panel">
+                <div>
+                    <h2>Ready for a quick revision?</h2>
+                    <p>Review your due cards and keep your memory fresh.</p>
+                </div>
+                <button class="primary-btn" onclick="showPage('review')">Review Now <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <!-- DECKS -->
+        <section class="page" id="decks">
+            <div class="section-heading page-heading">
+                <div>
+                    <h2>My Study Decks 📚</h2>
+                    <p>Organize your subjects and build your knowledge.</p>
+                </div>
+                <button class="primary-btn" id="addDeckBtn">
+                    <i class="fa-solid fa-plus"></i> Create Deck
+                </button>
+            </div>
+            <div id="allDecks" class="deck-grid large-grid"></div>
+        </section>
+
+        <!-- REVIEW -->
+        <section class="page" id="review">
+            <div class="review-heading">
+                <span class="hero-tag">✦ SMART REVISION</span>
+                <h2>Daily Review Session</h2>
+                <p>Think first. Flip the card. Then rate how well you remembered.</p>
+            </div>
+
+            <div class="review-status">
+                <span id="reviewProgress">Card 0 of 0</span>
+                <span><i class="fa-solid fa-fire"></i> Keep your streak alive!</span>
+            </div>
+
+            <div class="review-card-area">
+                <div class="flashcard" id="flashcard">
+                    <div class="flashcard-inner" id="flashcardInner">
+                        <div class="flashcard-front">
+                            <span class="card-label">QUESTION</span>
+                            <div class="card-symbol">💡</div>
+                            <h2 id="cardQuestion">Your next question will appear here.</h2>
+                            <p>Think about your answer before flipping.</p>
+                            <button class="flip-btn" id="flipBtn">Reveal Answer <i class="fa-solid fa-rotate"></i></button>
+                        </div>
+                        <div class="flashcard-back">
+                            <span class="card-label">ANSWER</span>
+                            <div class="card-symbol">🎯</div>
+                            <h2 id="cardAnswer">Your answer will appear here.</h2>
+                            <p>How well did you remember?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rating-area">
+                <p>RATE YOUR RECALL</p>
+                <div class="rating-buttons">
+                    <button class="rate-btn again" data-grade="0">0 <small>Forgot</small></button>
+                    <button class="rate-btn hard" data-grade="1">1 <small>Very hard</small></button>
+                    <button class="rate-btn hard" data-grade="2">2 <small>Hard</small></button>
+                    <button class="rate-btn okay" data-grade="3">3 <small>Good</small></button>
+                    <button class="rate-btn easy" data-grade="4">4 <small>Easy</small></button>
+                    <button class="rate-btn perfect" data-grade="5">5 <small>Perfect</small></button>
+                </div>
+                <p class="rating-hint">Use keyboard: Space to flip • 0–5 to rate</p>
+            </div>
+
+            <div id="reviewComplete" class="completion-box hidden">
+                <div class="completion-icon">🏆</div>
+                <h2>Awesome work!</h2>
+                <p>You have completed today's review session.</p>
+                <button class="primary-btn" onclick="showPage('dashboard')">Back to Dashboard</button>
+            </div>
+        </section>
+
+        <!-- LEADERBOARD -->
+        <section class="page" id="leaderboard">
+            <div class="review-heading">
+                <span class="hero-tag">✦ CAMPUS COMMUNITY</span>
+                <h2>Campus Leaderboard 🏆</h2>
+                <p>A little friendly competition makes learning more fun.</p>
+            </div>
+
+            <div class="panel leaderboard-panel">
+                <div class="section-heading">
+                    <div>
+                        <h2>Top Learners</h2>
+                        <p>Ranked by memory points.</p>
+                    </div>
+                    <span class="live-tag">● DEMO DATA</span>
+                </div>
+                <div class="leader-row leader-header">
+                    <span>Rank</span><span>Student</span><span>Streak</span><span>Points</span>
+                </div>
+                <div id="leaderboardList"></div>
+                <p class="demo-note">Sample leaderboard for frontend demonstration.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made for curious minds. <span>✦</span> RecallRocket © 2026</p>
+        </footer>
+
+    </main>
+</div>
+
+<!-- DECK MODAL -->
+<div class="modal hidden" id="deckModal">
+    <div class="modal-box">
+        <button class="close-btn" id="closeModal">&times;</button>
+        <span class="hero-tag">✦ BUILD YOUR COLLECTION</span>
+        <h2>Create a New Deck</h2>
+        <p>Give your new study collection a name.</p>
+        <form id="deckForm">
+            <label>Deck Name</label>
+            <input type="text" id="deckName" placeholder="e.g. Computer Networks" required>
+            <label>Choose an Icon</label>
+            <select id="deckIcon">
+                <option value="💻">💻 Technology</option>
+                <option value="📐">📐 Mathematics</option>
+                <option value="🧠">🧠 General Knowledge</option>
+                <option value="📚">📚 Books</option>
+                <option value="⚡">⚡ Science</option>
+                <option value="🌐">🌐 Languages</option>
+            </select>
+            <button type="submit" class="primary-btn full-btn">Create Deck</button>
+        </form>
+    </div>
+</div>
+
+<!-- CARD MODAL -->
+<div class="modal hidden" id="cardModal">
+    <div class="modal-box">
+        <button class="close-btn" id="closeCardModal">&times;</button>
+        <span class="hero-tag">✦ ADD KNOWLEDGE</span>
+        <h2>Add a Flashcard</h2>
+        <form id="cardForm">
+            <label>Question</label>
+            <textarea id="newQuestion" placeholder="Enter your question..." required></textarea>
+            <label>Answer</label>
+            <textarea id="newAnswer" placeholder="Enter the answer..." required></textarea>
+            <button type="submit" class="primary-btn full-btn">Save Flashcard</button>
+        </form>
+    </div>
+</div>
+
+<!-- DECK DETAIL MODAL -->
+<div class="modal hidden" id="detailModal">
+    <div class="modal-box detail-box">
+        <button class="close-btn" id="closeDetailModal">&times;</button>
+        <div id="deckDetailContent"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
